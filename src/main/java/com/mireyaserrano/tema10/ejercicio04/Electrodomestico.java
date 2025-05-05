@@ -34,8 +34,8 @@ public abstract class Electrodomestico {
     //Constructor completo
     public Electrodomestico(int precioBase, String color, char letraConsumo, double peso) {
         this.precioBase = precioBase;
-        this.color = comprobarColor(color);
-        this.consumoEnergetico = comprobarConsumoEnergetico(letraConsumo);
+        this.color = comprobarColor(color.trim().toLowerCase());
+        this.consumoEnergetico = comprobarConsumoEnergetico(Character.toUpperCase(letraConsumo));
         this.peso = peso;
     }
 
@@ -57,30 +57,27 @@ public abstract class Electrodomestico {
 
     //Requiere trim en el scanner y castearlo de String a char
     private ConsumoEnergetico comprobarConsumoEnergetico(char letra){
-        letra = Character.toUpperCase(letra);
-        if (letra == ' '){return CONSUMO_DEFAULT;}
-        ConsumoEnergetico[] valores = ConsumoEnergetico.values();
-        for (int i = 0; i < ConsumoEnergetico.values().length; i++){
-            if (letra == valores[i].toString().charAt(0)){
-                return valores[i];
-            }
+        switch (letra){
+            case 'A' -> {return ConsumoEnergetico.A;}
+            case 'B' -> {return ConsumoEnergetico.B;}
+            case 'C' -> {return ConsumoEnergetico.C;}
+            case 'D' -> {return ConsumoEnergetico.D;}
+            case 'E' -> {return ConsumoEnergetico.E;}
+            case 'F' -> {return ConsumoEnergetico.F;}
+            default -> {return CONSUMO_DEFAULT;}
         }
-        return CONSUMO_DEFAULT;
     }
 
     //Hacer trim antes de pasar el String
     private Color comprobarColor(String color){
-        color = color.toUpperCase().trim();
-        if (color == null || color.equals("")){
-            return COLOR_DEFAULT;
+        switch(color){
+            case "blanco" -> {return Color.BLANCO;}
+            case "negro" -> {return Color.NEGRO;}
+            case "rojo" -> {return Color.ROJO;}
+            case "azul" -> {return Color.AZUL;}
+            case "gris" -> {return Color.GRIS;}
+            default -> {return Color.BLANCO;}
         }
-        Color[] colores = Color.values();
-        for (int i = 0; i < Color.values().length; i++) {
-            if (color.equals(colores[i].toString())){
-                return colores[i];
-            }
-        }
-        return COLOR_DEFAULT;
     }
 
     protected int precioFinal(){
