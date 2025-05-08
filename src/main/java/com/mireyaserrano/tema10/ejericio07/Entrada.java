@@ -13,17 +13,12 @@ public abstract class Entrada {
     private Asiento numAsiento;
 
     public Entrada(Partido partido, Zona zona, Fila fila, Asiento numAsiento, int precioBase) {
-        this.numEntrada = asignarId();
+        this.numEntrada = ++id;
         this.precio = precioPartido(precioBase);
         this.partido = partido;
         this.zona = zona;
         this.fila = fila;
         this.numAsiento = numAsiento;
-    }
-
-    private int asignarId(){
-        id++;
-        return id;
     }
 
     public int getNumEntrada() {
@@ -54,6 +49,11 @@ public abstract class Entrada {
         numAsiento.setOcupado(true);
     }
 
+    /**
+     * Calcula el precio del partido según la afluencia de éste
+     * @param precioBase El precio base de la entrada
+     * @return el precio del partido según la afluencia del partido
+     */
     private int precioPartido(int precioBase){
         int precioFinal = 0;
         switch (Objects.requireNonNull(partido).getTipoPartido()){
@@ -62,6 +62,18 @@ public abstract class Entrada {
             case ALTA_AFLUENCIA -> {precioFinal = (precioBase * 130) / 100;}
         }
         return precioFinal;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Entrada entrada = (Entrada) o;
+        return numEntrada == entrada.numEntrada;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(numEntrada);
     }
 
     @Override

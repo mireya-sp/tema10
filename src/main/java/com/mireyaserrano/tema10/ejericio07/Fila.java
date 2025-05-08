@@ -12,6 +12,9 @@ public class Fila {
         rellenarFila();
     }
 
+    /**
+     * metodo para llenar la fila de asientos cuando se crea
+     */
     private void rellenarFila(){
         for (int i = 0; i < asientos.length; i++) {
             asientos[i] = new Asiento(i+1);

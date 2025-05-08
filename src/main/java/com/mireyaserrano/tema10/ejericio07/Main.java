@@ -12,12 +12,19 @@ public class Main {
     
     private static Scanner scanner = new Scanner(System.in);
 
+    /**
+     * menu principal
+     */
     private static void menu(){
         System.out.println("1. Nuevo partido\n" +
                 "2. Gestión de entradas\n" +
                 "0. Salir");
     }
 
+
+    /**
+     * submenu para la gestion de entradas
+     */
     private static void menuGestionEntradas(){
         System.out.println("1. Venta de entradas\n" +
                 "2. Devolver una entrada\n" +
@@ -41,6 +48,9 @@ public class Main {
         }while(opcion != 0);
     }
 
+    /**
+     * Metodo para crear objetos partido
+     */
     private static void nuevoPartido(){
         TipoPartido tipoPartido = null;
         String fechaPartidoString;
@@ -100,6 +110,9 @@ public class Main {
         }
     }
 
+    /**
+     * Opcion de gestion de entradas
+     */
     private static void gestionEntradas(){
         int opcion;
         do{
@@ -129,10 +142,16 @@ public class Main {
         }while(opcion != 0);
     }
 
+    /**
+     * menu de tipos de partidos para escoger fácil
+     */
     private static void tiposPartidos(){
         System.out.println("1. Baja Afluencia\n2. Media Afluencia\n3. Alta Afluencia");
     }
 
+    /**
+     * devolucion de entrada, busca la entrada con el id introducido y la elimina del arraylist de entradas
+     */
     private static void devolucion(){
         System.out.println("Introduce el número identificador de la entrada");
         int id = Integer.parseInt(scanner.nextLine());
@@ -143,6 +162,10 @@ public class Main {
         }
     }
 
+    /**
+     * Recorre el arraylis de la estradas sumando el precio
+     * @return La recaudación total del partido
+     */
     private static int recaudacion(){
         int precio = 0;
         for (Entrada entrada : entradas) {

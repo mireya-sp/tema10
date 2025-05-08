@@ -9,8 +9,12 @@ public class Estadio {
 
     public Estadio() {
         this.zonas = new Zona[CANTIDAD_ZONAS];
+        rellenarEstadio();
     }
 
+    /**
+     * metodo que llena el estadio cuando se crea
+     */
     private void rellenarEstadio(){
         int cantidadVIP = CANTIDAD_ZONAS / 3;
         int cantidadNormal = CANTIDAD_ZONAS - cantidadVIP;

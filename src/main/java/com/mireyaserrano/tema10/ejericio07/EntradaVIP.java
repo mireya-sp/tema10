@@ -1,7 +1,5 @@
 package com.mireyaserrano.tema10.ejericio07;
 
-import com.mireyaserrano.tema10.ejericio07.Aleatorios;
-
 public class EntradaVIP extends Entrada{
     private String codigoCaja;
 

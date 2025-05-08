@@ -47,6 +47,10 @@ public class Partido {
         return estadio;
     }
 
+    /**
+     * Metodo que encuentra los asientos ocupados del partido
+     * @return El arrayList con los asientos que ya están ocupados
+     */
     public ArrayList<Asiento> ocupados(){
         ArrayList<Asiento> asientosArray = new ArrayList<>();
         for (Zona zona : estadio.getZonas()) {
@@ -61,6 +65,10 @@ public class Partido {
         return asientosArray;
     }
 
+    /**
+     * Metodo que encuentra los asientos libres del partido
+     * @return EL arrayList con los asientos libres
+     */
     public ArrayList<Asiento> libres(){
         ArrayList<Asiento> asientosArray = new ArrayList<>();
         for (Zona zona : estadio.getZonas()) {

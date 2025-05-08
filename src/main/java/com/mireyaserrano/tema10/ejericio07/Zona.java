@@ -11,8 +11,12 @@ public class Zona {
     public Zona(boolean VIP) {
         this.filas = new Fila[CANTIDAD_FILAS];
         this.VIP = VIP;
+        rellenarZona();
     }
 
+    /**
+     * metodo para llenar la zona de asientos cuando se crea
+     */
     private void rellenarZona(){
         for (int i = 0; i < filas.length; i++) {
             filas[i] = new Fila();
