@@ -103,15 +103,27 @@ public class Main {
     private static void gestionEntradas(){
         int opcion;
         do{
+            int idPartido;
+            boolean validar;
+            do {
+                System.out.println(partidos);
+                System.out.println("Introduce la id del partido.");
+                idPartido = Integer.parseInt(scanner.nextLine());
+                validar = idPartido > 0 && idPartido < partidos.size();
+                if (!validar){
+                    System.out.println("Introduce la id de un partido válido");
+                }
+            }while (!validar);
+            int indicePartido = idPartido - 1;
             menuGestionEntradas();
             opcion = Integer.parseInt(scanner.nextLine());
             switch (opcion){
                 case 0 -> System.out.println("Saliendo...");
-                case 1 -> venta();
+                case 1 -> System.out.println("Venta");
                 case 2 -> devolucion();
-                case 3 -> ocupadas(1);
-                case 4 -> libres();
-                case 5 -> recaudacion();
+                case 3 -> System.out.println(partidos.get(indicePartido).ocupados());
+                case 4 -> System.out.println(partidos.get(indicePartido).libres());
+                case 5 -> System.out.printf("El dinero acumulado por la venta de entradas es %d", recaudacion());
                 default -> System.out.println("Por favor introduzca una opción válida.");
             }
         }while(opcion != 0);
@@ -121,47 +133,21 @@ public class Main {
         System.out.println("1. Baja Afluencia\n2. Media Afluencia\n3. Alta Afluencia");
     }
 
-    private static void venta(){
-
-    }
-
     private static void devolucion(){
-
-    }
-
-    private static void ocupadas(int indicePartido){
-        for (int i = 0; i < partidos.get(indicePartido).getEstadio().getZonas().length; i++) {
-            for (int j = 0; j < partidos.get(indicePartido).getEstadio().getZonas()[i].getFilas().length; j++) {
-                for (int k = 0; k < partidos.get(indicePartido).getEstadio().getZonas()[i].getFilas()[j].getAsientos().length; k++) {
-                    if (partidos.get(indicePartido).getEstadio().getZonas()[i].getFilas()[j].getAsientos()[k].isOcupado()){
-                        System.out.println(partidos.get(indicePartido).getEstadio().getZonas()[i].getFilas()[j].getAsientos()[k].toString());
-                    }
-                }
+        System.out.println("Introduce el número identificador de la entrada");
+        int id = Integer.parseInt(scanner.nextLine());
+        for (Entrada entrada : entradas){
+            if (entrada.getNumEntrada() == id){
+                entradas.remove(entrada);
             }
         }
     }
 
-    private static void libres(){
-        Zona[] zonas;
-        Fila[] filas;
-        Asiento[] asientos;
-        for (int i = 0; i < partidos.size(); i++) {
-            zonas = partidos.get(i).getEstadio().getZonas();
-            for (int j = 0; j < zonas.length; j++) {
-                filas = zonas[j].getFilas();
-                for (int k = 0; k < filas.length; k++) {
-                    asientos = filas[k].getAsientos();
-                    for (int l = 0; l < asientos.length; l++) {
-                        if (!asientos[l].isOcupado()){
-                            System.out.println(asientos[l].toString());
-                        }
-                    }
-                }
-            }
+    private static int recaudacion(){
+        int precio = 0;
+        for (Entrada entrada : entradas) {
+            precio += entrada.getPrecio();
         }
-    }
-
-    private static void recaudacion(){
-
+        return precio;
     }
 }

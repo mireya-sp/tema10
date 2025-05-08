@@ -1,9 +1,13 @@
 package com.mireyaserrano.tema10.ejericio07;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Partido {
+    private int count = 0;
+
+    private int idPartido;
     private TipoPartido tipoPartido;
     private LocalDate fechaPartido;
     private String equipoLocal;
@@ -11,11 +15,16 @@ public class Partido {
     private Estadio estadio;
 
     public Partido(TipoPartido tipoPartido, LocalDate fechaPartido, String equipoLocal, String equipoVisitante) {
+        this.idPartido = ++count;
         this.tipoPartido = tipoPartido;
         this.fechaPartido = fechaPartido;
         this.equipoLocal = equipoLocal;
         this.equipoVisitante = equipoVisitante;
         this.estadio = new Estadio();
+    }
+
+    public int getIdPartido() {
+        return idPartido;
     }
 
     public TipoPartido getTipoPartido() {
@@ -38,6 +47,34 @@ public class Partido {
         return estadio;
     }
 
+    public ArrayList<Asiento> ocupados(){
+        ArrayList<Asiento> asientosArray = new ArrayList<>();
+        for (Zona zona : estadio.getZonas()) {
+            for (Fila fila : zona.getFilas()) {
+                for (Asiento asiento : fila.getAsientos()) {
+                    if (asiento.isOcupado()) {
+                        asientosArray.add(asiento);
+                    }
+                }
+            }
+        }
+        return asientosArray;
+    }
+
+    public ArrayList<Asiento> libres(){
+        ArrayList<Asiento> asientosArray = new ArrayList<>();
+        for (Zona zona : estadio.getZonas()) {
+            for (Fila fila : zona.getFilas()) {
+                for (Asiento asiento : fila.getAsientos()) {
+                    if (!asiento.isOcupado()) {
+                        asientosArray.add(asiento);
+                    }
+                }
+            }
+        }
+        return asientosArray;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
@@ -53,7 +90,8 @@ public class Partido {
     @Override
     public String toString() {
         return "Partido{" +
-                "tipoPartido=" + tipoPartido +
+                "idPartido=" + idPartido +
+                ", tipoPartido=" + tipoPartido +
                 ", fechaPartido=" + fechaPartido +
                 ", equipoLocal='" + equipoLocal + '\'' +
                 ", equipoVisitante='" + equipoVisitante + '\'' +
